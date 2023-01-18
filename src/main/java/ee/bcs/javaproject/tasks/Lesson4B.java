@@ -12,5 +12,5 @@ public class Lesson4B {
     // When account is locked depositMoney, withdrawMoney and transferMoney must fail
 
     // Lesson 3
-    // Add functionalty to query account statement (all deposit, withdraw and transfers) for specific account
+    // Add functionality to query account statement (all deposit, withdraw and transfers) for specific account
 }

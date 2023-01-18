@@ -1,5 +1,6 @@
-package ee.bcs.javaproject.solution;
+package ee.bcs.javaproject.controller;
 
+import ee.bcs.javaproject.sample.exception.ApplicationException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,18 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-@RequestMapping("solution/account")
 @RestController
 public class Lesson4SolutionController {
 
     Map<String, Double> accounts = new HashMap<>();
 
-    @PostMapping("{accountNumber}")
-    public void createAccount(@PathVariable String accountNumber) {
+    @PostMapping("account/{accountNumber}")
+    public String createAccount(@PathVariable String accountNumber) {
         accounts.put(accountNumber, 0.0);
+        return "Konto loodud";
     }
 
-    @GetMapping("{accountNumber}")
+    @GetMapping("account/{accountNumber}")
     public Double getAccount(@PathVariable String accountNumber) {
         return accounts.get(accountNumber);
     }
@@ -30,7 +31,7 @@ public class Lesson4SolutionController {
     public String depositMoney(@PathVariable String accountNumber, @PathVariable Double amount) {
         // validatsioonid
         if (amount <= 0) {
-            return "Sisestatud summa peab olema > 0";
+            throw new ApplicationException("Sisestatud summa peab olema > 0");
         }
 
         // mida meil on vaja teha
@@ -43,12 +44,12 @@ public class Lesson4SolutionController {
     @PutMapping("withdraw/{accountNumber}/{amount}")
     public String withdrawMoney(@PathVariable String accountNumber, @PathVariable Double amount) {
         if (amount <= 0) {
-            return "Sisestatud summa peab olema > 0";
+            throw new ApplicationException("Sisestatud summa peab olema > 0");
         }
 
         Double currentBalance = accounts.get(accountNumber);
         if (currentBalance < amount) {
-            return "Kontol pole piisavalt raha";
+            throw new ApplicationException("Kontol pole piisavalt raha");
         }
 
         Double newBalance = currentBalance - amount;
@@ -59,11 +60,11 @@ public class Lesson4SolutionController {
     @PutMapping("transfer/{fromAccount}/{toAccount}/{amount}")
     public String transferMoney(@PathVariable String fromAccount, @PathVariable String toAccount, @PathVariable Double amount) {
         if (amount <= 0) {
-            return "Sisestatud summa peab olema > 0";
+            throw new ApplicationException("Sisestatud summa peab olema > 0");
         }
         Double fromAccountCurrentBalance = accounts.get(fromAccount);
         if (fromAccountCurrentBalance < amount) {
-            return "Kontol pole piisavalt raha";
+            throw new ApplicationException("Kontol pole piisavalt raha");
         }
         Double toAccountToBalance = accounts.get(toAccount);
         Double fromAccountNewBalance = fromAccountCurrentBalance - amount;

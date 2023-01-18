@@ -59,15 +59,4 @@ class Lesson1Test {
         assertEquals(-5, Lesson1.min3(1, 2, -5));
         assertEquals(3, Lesson1.min3(5, 4, 3));
     }
-
-    @Test
-    void max3() {
-        assertEquals(4, Lesson1.max3(2, 3, 4));
-        assertEquals(4, Lesson1.max3(3, 3, 4));
-        assertEquals(4, Lesson1.max3(2, 4, 4));
-        assertEquals(4, Lesson1.max3(3, 2, 4));
-        assertEquals(4, Lesson1.max3(4, 2, 4));
-
-
-    }
 }

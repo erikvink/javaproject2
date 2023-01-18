@@ -7,6 +7,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "account")
 public class AccountEntity {
+
     @Id
     private String accountNumber;
     private Double balance;
@@ -14,7 +15,7 @@ public class AccountEntity {
     private String lastName;
     private boolean locked;
 
-    public String getAccountNumber() {
+        public String getAccountNumber() {
         return accountNumber;
     }
 
